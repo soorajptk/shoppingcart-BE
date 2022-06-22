@@ -1,8 +1,6 @@
 const { StatusCodes } = require('http-status-codes')
 const {registerModel,loginModel}=require('../model/auth.js')
 const {crypt,compare}=require('../utils/hash.js')
-const { BadRequestError, UnauthenticatedError } = require('../errors')
-const {makeDb}=require('../library/db.js')
 const jwt=require('jsonwebtoken')
 
 const register =async (req, res) => {
