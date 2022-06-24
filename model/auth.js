@@ -14,10 +14,10 @@ const {makeDb}=require('../library/db.js')
   }
 
   const loginModel=async(loginCred)=>{
-    const rows = await makeDb().query(qry,loginCred);
     try {
       let qry='SELECT * FROM customer WHERE email=?'
-          return {success:true,rows}
+      const rows = await makeDb().query(qry,loginCred);
+      return {success:true,rows}
         } catch (error) {
       return {success:false,error:"login failed"}
 

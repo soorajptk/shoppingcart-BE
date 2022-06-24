@@ -37,7 +37,7 @@ const login=async(req,res)=>{
                 return  res.status(401).json("please verify your password")
                 }
                 const token=jwt.sign({id:obj.id,name:obj.username},process.env.JWT_SECRET,{expiresIn:process.env.JWT_LIFE})
-                  return  res.status(StatusCodes.OK).json({response:obj,token})
+                return  res.status(StatusCodes.OK).json({response:obj,token})
         }
     } catch (error) {
         return  res.status(500).json({error})

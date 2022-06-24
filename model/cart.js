@@ -3,9 +3,11 @@ const {makeDb}=require('../library/db.js')
 const getAllCartItemsModel=async(userId)=>{
 const db=makeDb()
 let qry=`SELECT * FROM cart JOIN customer ON cart.user_id=customer.id JOIN cart_items ON cart.cart_id=cart_items.cart_id JOIN product ON product.product_id=cart_items.product_id WHERE customer.id=${userId}`
+let offerQry=`SELECT * FROM offers`
 try {
     const response=await db.query(qry)
-    return {success:true,response}
+    const offerRes=await db.query(offerQry)
+    return {success:true,response,offerRes}
 } catch (error) {
     return {success:false,error:"fetching cart items failed"}
 }
@@ -27,7 +29,7 @@ try {
         const cart_itemsCheck=await db.query(qryCheckItem)
         if(cart_itemsCheck.length>0){
             let cartItemqry=`UPDATE cart_items SET? WHERE cart_id=${response[0].cart_id} AND product_id=${product_id}`
-            let prevQty=`SELECT qty FROM cart_items WHERE product_id=${product_id}`
+            let prevQty=`SELECT qty FROM cart_items WHERE product_id=${product_id} AND cart_id=${response[0].cart_id}`
             const prev=await db.query(prevQty)
             const cartItemCreated=await db.query(cartItemqry,{qty:prev[0].qty+1})
             return {success:true,response:"successfully item added qty is incresed"}
@@ -39,7 +41,7 @@ try {
     }
 
 } catch (error) {
-    return {success:true,response:"add item into the cart failed"}
+    return {success:false,response:"add item into the cart failed"}
 }
 }
 

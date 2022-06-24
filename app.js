@@ -12,6 +12,7 @@ app.use(cors())
 
 const authRouter=require('./routes/auth')
 const productRouter=require('./routes/product')
+const orderRouter=require('./routes/order')
 // error handler
 const notFoundMiddleware=require('./middlewares/not-found')
 const errorHandlerMiddleware=require('./middlewares/error-handler')
@@ -21,6 +22,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/product',productRouter)
+app.use('/api/v1/product/order',orderRouter)
 
 const PORT= process.env.PORT||5000;
 
