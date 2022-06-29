@@ -9,13 +9,18 @@ const register =async (req, res) => {
         message: "Content can not be empty!"
       });
     }
-   const response=await registerModel(req.body)
-   if(response.success){
-    return res.status(StatusCodes.CREATED).json(response)
-   }else{
-    console.log(response);
-    return res.status(StatusCodes.BAD_REQUEST).json(response)
-   }
+    try {
+        const response=await registerModel(req.body)
+        if(response.success){
+         return res.status(StatusCodes.CREATED).json(response)
+        }else{
+         console.log(response);
+         return res.status(StatusCodes.BAD_REQUEST).json(response)
+        }
+    } catch (error) {
+        return res.status(500).json("something went wrong try again later")
+
+    }
   };
 
 
