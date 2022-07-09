@@ -4,6 +4,7 @@ require('dotenv').config()
 const express=require('express')
 const app=express();
 const cors=require('cors')
+const fileUpload = require('express-fileupload');
 
 app.use(express.json())
 app.use(express.urlencoded({extented:true}))
@@ -17,6 +18,10 @@ const adminRouter=require('./routes/admin')
 // error handler
 const notFoundMiddleware=require('./middlewares/not-found')
 const errorHandlerMiddleware=require('./middlewares/error-handler')
+
+app.use(express.static(`${__dirname}/public`));
+
+app.use(fileUpload());
 
 app.get('/',(req,res)=>{
     res.send("my cart")

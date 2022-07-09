@@ -51,7 +51,8 @@ const cart=async(req,res)=>{
                 let newdate=`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
                 return newdate
             }
-            let cart=[]
+
+            let cart=[];
             let flag=true;
             response.response.forEach(cartItem=>{
                 const {product_id,price}=cartItem
@@ -116,7 +117,7 @@ const deleteCartItem=async(req,res)=>{
     }
         
     } catch (error) {
-        return res.status(500).json("something went wrong try again later")
+        return res.status(500).json("something wentsss wrong try again later")
     }
 }
 
